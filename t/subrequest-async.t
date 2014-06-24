@@ -534,47 +534,7 @@ world
 
 
 
-=== TEST 27: leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_subrequest_async GET /foo;
-    }
-    location /foo {
-        echo -n world;
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world);
-
-
-
-=== TEST 28: multiple leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_subrequest_async GET /foo;
-        echo_subrequest_async GET /bar;
-    }
-    location /foo {
-        echo -n world;
-    }
-    location /bar {
-        echo -n ' people';
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world people);
-
-
-
-=== TEST 29: sanity (HEAD)
+=== TEST 27: sanity (HEAD)
 --- config
     location /main {
         echo_subrequest_async GET /sub;
@@ -589,7 +549,7 @@ hi(world people);
 
 
 
-=== TEST 30: HEAD subrequest
+=== TEST 28: HEAD subrequest
 --- config
     location /main {
         echo_subrequest_async HEAD /sub;

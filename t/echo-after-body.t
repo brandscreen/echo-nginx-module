@@ -5,7 +5,7 @@ use Test::Nginx::Socket;
 
 repeat_each(2);
 
-plan tests => repeat_each() * (2 * blocks() + 1);
+plan tests => 2 * repeat_each() * blocks();
 
 no_long_string();
 log_level('warn');
@@ -232,30 +232,4 @@ hello
     GET /main
 --- response_body_like
 ^(?:hello){10}world$
-
-
-
-=== TEST 14: in subrequests (we get last_in_chain set properly)
---- config
-    location /main {
-        echo_location_async /hello;
-    }
-    location /hello {
-        echo 'hello';
-        echo_after_body 'world!';
-        body_filter_by_lua '
-            local eof = ngx.arg[2]
-            if eof then
-                print("lua: eof found in body")
-            end
-        ';
-    }
---- request
-    GET /main
---- response_body
-hello
-world!
---- log_level: notice
---- error_log
-lua: eof found in body
 

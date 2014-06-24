@@ -504,55 +504,7 @@ world
 
 
 
-=== TEST 23: leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_location /foo;
-    }
-    location /foo {
-        echo -n world;
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world);
-
-
-
-=== TEST 24: multiple leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_location /foo;
-        echo_location /bar;
-    }
-    location /main2 {
-        content_by_lua '
-            local res = ngx.location.capture("/foo")
-            local res2 = ngx.location.capture("/bar")
-            ngx.say(res.body)
-            ngx.say(res2.body)
-        ';
-    }
-    location /foo {
-        echo -n world;
-    }
-    location /bar {
-        echo -n ' people';
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world people);
-
-
-
-=== TEST 25: sanity (HEAD)
+=== TEST 23: sanity (HEAD)
 --- config
     location /main {
         echo_location /sub;

@@ -610,47 +610,7 @@ world
 
 
 
-=== TEST 29: leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_subrequest GET /foo;
-    }
-    location /foo {
-        echo -n world;
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world);
-
-
-
-=== TEST 30: multiple leading subrequest & xss
---- config
-    location /main {
-        default_type 'application/json';
-        xss_get on;
-        xss_callback_arg c;
-        echo_subrequest GET /foo;
-        echo_subrequest GET /bar;
-    }
-    location /foo {
-        echo -n world;
-    }
-    location /bar {
-        echo -n ' people';
-    }
---- request
-    GET /main?c=hi
---- response_body chop
-hi(world people);
-
-
-
-=== TEST 31: sanity (HEAD)
+=== TEST 29: sanity (HEAD)
 --- config
     location /main {
         echo_subrequest GET /sub;
@@ -665,7 +625,7 @@ hi(world people);
 
 
 
-=== TEST 32: POST subrequest to ngx_proxy
+=== TEST 30: POST subrequest to ngx_proxy
 --- config
     location /hello {
        default_type text/plain;
@@ -691,7 +651,7 @@ sub body: request_body=test&test=3
 
 
 
-=== TEST 33: HEAD subrequest
+=== TEST 31: HEAD subrequest
 --- config
     location /main {
         echo_subrequest HEAD /sub;

@@ -191,24 +191,7 @@ heh
 
 
 
-=== TEST 10: reset ctx
---- config
-    location @proxy {
-        rewrite_by_lua return;
-        echo hello;
-    }
-    location /main {
-        rewrite_by_lua return;
-        echo_exec @proxy;
-    }
---- request
-    GET /main
---- response_body
-hello
-
-
-
-=== TEST 11: yield before exec
+=== TEST 10: yield before exec
 --- config
     location @bar {
         echo hello;

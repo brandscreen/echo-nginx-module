@@ -309,26 +309,7 @@ world
 
 
 
-=== TEST 22: if is evil
---- config
-    location /test {
-        set $a 3;
-        set_by_lua $a '
-            if ngx.var.a == "3" then
-                return 4
-            end
-        ';
-        echo $a;
-    }
---- request
-    GET /test
---- response_body
-4
---- SKIP
-
-
-
-=== TEST 23: HEAD
+=== TEST 22: HEAD
 --- config
     location /echo {
         echo hello;
@@ -340,7 +321,7 @@ world
 
 
 
-=== TEST 24: POST
+=== TEST 23: POST
 --- config
     location /echo {
         echo hello;
@@ -355,7 +336,7 @@ foo bar baz"]
 
 
 
-=== TEST 25: POST
+=== TEST 24: POST
 --- config
     location /echo {
         echo_sleep 0.001;
@@ -371,7 +352,7 @@ foo bar baz"]
 
 
 
-=== TEST 26: empty arg after -n (github issue #33)
+=== TEST 25: empty arg after -n (github issue #33)
 --- config
     location = /t {
         set $empty "";
