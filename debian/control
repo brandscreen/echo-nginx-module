@@ -1,0 +1,12 @@
+Source: echo-nginx-module
+Section: misc
+Priority: optional
+Maintainer: Miles Delahunty <mdelahunty@brandscreen.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: http://wiki.nginx.org/HttpEchoModule
+
+Package: echo-nginx-module
+Architecture: all
+Depends: ${misc:Depends}
+Description: ngx_echo - Brings "echo", "sleep", "time", "exec" and more shell-style goodies to Nginx config file

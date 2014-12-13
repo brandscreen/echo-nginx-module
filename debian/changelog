@@ -1,0 +1,5 @@
+echo-nginx-module (1.0-1-1) precise; urgency=low
+
+  * Initial release
+
+ -- Miles Delahunty <mdelahunty@brandscreen.com>  Sat, 13 Dec 2014 11:53:36 +1100
